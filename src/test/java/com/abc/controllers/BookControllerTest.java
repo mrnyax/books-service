@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(BookController.class)
+@WithMockUser
 class BookControllerTest {
 
     public static final String BOOKS_ENDPOINT_URL = "/books";
@@ -36,10 +38,8 @@ class BookControllerTest {
         final BookDto bookDto = new BookDto("Book Title", "Author Test", 2015);
         when(bookService.save(any())).thenReturn(bookDto);
 
-        final BookDto bookDtoRequest = bookDto;
         mockMvc.perform(
                         post(BOOKS_ENDPOINT_URL)
-                                .with(httpBasic("admin", "password"))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(bookDto))
                 )
