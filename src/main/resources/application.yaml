@@ -1,0 +1,10 @@
+spring.application.name=books-service
+
+server.port=6000
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/books_db
+spring.datasource.username=local-user
+spring.datasource.password=Pass@1234
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=create-drop
